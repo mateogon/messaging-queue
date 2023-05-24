@@ -6,7 +6,7 @@ import random
 import string
 from kafka import KafkaProducer
 from threading import Thread
-
+from math import exp
 # Set the number of devices
 n = 10
 
@@ -16,9 +16,9 @@ delta_t = 2
 # Set the running time in seconds
 running_time = 60
 
-# Set the range for the random data size
+# Set min and max data size
 min_data_size = 5
-max_data_size = 15
+max_data_size = 500
 
 # Create a Kafka producer
 producer = KafkaProducer(bootstrap_servers='localhost:9092', value_serializer=lambda x: json.dumps(x).encode('utf-8'))
@@ -26,11 +26,10 @@ producer = KafkaProducer(bootstrap_servers='localhost:9092', value_serializer=la
 # Create a shared variable for the threads to know when to stop
 stop_threads = False
 
-def simulate_device(device_id):
+def simulate_device(device_id,data_size):
     global stop_threads
     while not stop_threads:
-        # Generate random data of random size
-        data_size = random.randint(min_data_size, max_data_size)
+        # Generate random data
         data = ''.join(random.choices(string.ascii_letters + string.digits, k=data_size))
 
         # Create the message
@@ -51,7 +50,15 @@ def simulate_device(device_id):
 
 # Create and start a thread for each device
 for i in range(n):
-    Thread(target=simulate_device, args=(i,)).start()
+    
+    m = i+1
+    # Calculate the data size for the device
+    data_size = round(min((min_data_size + (max_data_size - min_data_size) * (1 - exp(-i / m))) / m, max_data_size))
+
+    device = Thread(target=simulate_device, args=(i,data_size))
+    # Set the thread as a daemon so it will be terminated once the main thread is terminated
+    device.daemon = True
+    device.start()
 
 # Let the threads run for the specified running time
 time.sleep(running_time)
