@@ -8,10 +8,10 @@ from kafka import KafkaProducer
 from threading import Thread
 from math import exp
 # Set the number of devices
-n = 10
+n = 30
 
 # Set the delta time in seconds
-delta_t = 2
+delta_t = 1
 
 # Set the running time in seconds
 running_time = 60

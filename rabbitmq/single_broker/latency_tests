@@ -1,0 +1,13 @@
+10 prod 10 cons		The average latency is 0.0023587958017985025 seconds.
+10 prod 30 cons		The average latency is 0.0021326939264933267 seconds.
+30 prod 30 cons		The average latency is 0.001990651717955404 seconds.
+50 prod 50 cons		The average latency is 0.0019213894038524442 seconds.
+100 prod 100 cons	The average latency is 0.0017533052718697148 seconds.
+200 prod 200 cons	The average latency is 0.0017585134960502872 seconds.
+
+
+50 prod 50 cons
+
+delta_t = 1	The average latency is 0.0021157846663580155 seconds.
+delta_t = 0.1	The average latency is 0.0012076700077530203 seconds.
+delta_t = 0.01	The average latency is 0.01404356385341353 seconds.

@@ -73,5 +73,8 @@ time.sleep(running_time)
 # After the running time has passed, signal the threads to stop
 stop_threads = True
 
+# Give the threads a chance to stop
+time.sleep(delta_t)
+
 # Close the RabbitMQ connection
 connection.close()

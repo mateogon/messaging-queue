@@ -1,0 +1,1 @@
+The RabbitMQ code includes a lock to synchronize threads when sending messages. This is not necessary in the Kafka code because the KafkaProducer is thread-safe​
